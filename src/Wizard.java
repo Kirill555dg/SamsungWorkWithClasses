@@ -17,6 +17,9 @@ public class Wizard extends Unit{
         super(name);
     }
 
+    public Wizard() {
+
+    }
 
     @Override
     public String toString() {

@@ -7,6 +7,9 @@ public class Unit {
     protected float criticalDamageChance = 0.1f;
     protected float parryChance = 0.2f;
 
+    public Unit() {
+    }
+
     public int getHealth() {
         return health;
     }
