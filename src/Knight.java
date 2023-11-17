@@ -1,18 +1,22 @@
 public class Knight extends Unit{
-    protected int healrate = 10;
+    protected int healrate = 20;
     public Knight(String unitName) {
-        name = "Мечник " + unitName;
+        name = "Рыцарь " + unitName;
         health = 125;
-        CriticalChanse = 0.3f;
-        ParryChanse = 0.3f;
+        CriticalChance = 0.3f;
+        ParryChance = 0.2f;
     }
     public void healing(Unit unit) {
         unit.takeHealing(healrate);
     }
     @Override
+    public void addConcentration(){
+        concentration += 34;
+    }
+    @Override
     public void ultimate(Unit[] PlayerUnits, Unit[] RivalUnits) {
         for (Unit teammate : PlayerUnits) {
-            this.healing(teammate);
+            if (teammate.isAlive()) this.healing(teammate);
         }
         super.ultimate(PlayerUnits, RivalUnits);
     }

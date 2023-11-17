@@ -3,11 +3,13 @@ public class Unit {
     protected String name = "Персонаж";
     protected boolean Alive = true;
     protected int health = 100;
-    protected boolean can_ultimate = false;
+    protected final int MAX_HEALTH = health;
+    protected boolean canUltimate = false;
+    protected int concentration = 0;
     protected int defence = 10;
     protected int power = 15;
-    protected float CriticalChanse = 0.1f;
-    protected float ParryChanse = 0.1f;
+    protected float CriticalChance = 0.1f;
+    protected float ParryChance = 0.1f;
 
     public boolean isAlive() {
         return Alive;
@@ -24,12 +26,12 @@ public class Unit {
         this.health = health;
     }
 
-    public boolean isCan_ultimate() {
-        return can_ultimate;
+    public boolean isCanUltimate() {
+        return canUltimate;
     }
 
-    public void setCan_ultimate(boolean can_ultimate) {
-        this.can_ultimate = can_ultimate;
+    public void setCanUltimate(boolean canUltimate) {
+        this.canUltimate = canUltimate;
     }
 
     public int getDefence() {
@@ -48,41 +50,53 @@ public class Unit {
         this.power = power;
     }
 
-    public float getCriticalChanse() {
-        return CriticalChanse;
+    public float getCriticalChance() {
+        return CriticalChance;
     }
 
-    public void setCriticalChanse(float criticalChanse) {
-        CriticalChanse = criticalChanse;
+    public void setCriticalChance(float criticalChance) {
+        CriticalChance = criticalChance;
     }
 
-    public float getParryChanse() {
-        return ParryChanse;
+    public float getParryChance() {
+        return ParryChance;
     }
 
-    public void setParryChanse(float parryChanse) {
-        ParryChanse = parryChanse;
+    public void setParryChance(float parryChance) {
+        ParryChance = parryChance;
     }
 
     public void attack(Unit unit) {
-        int damage = util.CritHitCheck(power, CriticalChanse);
+        int damage = util.criticalHitCheck(power, CriticalChance);
         System.out.println(this.name + " атакует " + unit.name + ", пытаясь нанести урон: " + damage);
         if (damage > power) {
             System.out.println("Критический удар!");
         }
         unit.takeDamage(damage);
-        if (!can_ultimate) {
-            System.out.println("Обретена концентрация");
-            this.can_ultimate = true;
+        getUlt();
+    }
+
+    public void addConcentration(){
+        concentration += 50;
+    }
+    public void getUlt(){
+        if (!canUltimate) {
+            addConcentration();
+            if (concentration >= 100){
+                System.out.println("Обретена концентрация");
+                this.canUltimate = true;
+                concentration = 0;
+            }
         }
     }
     public void ultimate(Unit[] PlayerUnits, Unit[] RivalUnits) {
-        this.can_ultimate = false;
+        this.canUltimate = false;
         System.out.println("Концентрация потрачена");
     }
     public void takeDamage(int damage) {
-        damage = util.Resistance(damage, defence);
-        this.health -= util.ParyChek(damage, ParryChanse);
+        damage = util.resistance(damage, defence);
+        damage = util.parryCheck(damage, ParryChance);
+        this.health -= damage;
         System.out.println(name + " - получено урона: " + damage);
         if (damage == 0) {
             System.out.println("Успешное парирование!");
@@ -94,10 +108,14 @@ public class Unit {
         }
     }
     public void takeHealing(int hprec) {
-        this.health += hprec;
+        if (hprec + health >= MAX_HEALTH) {
+            hprec = MAX_HEALTH - health;
+        }
+        health += hprec;
         System.out.println(name + " восстановил здоровье: " + hprec);
+
     }
     public String toString() {
-        return name + ": Здоровье - " + health + ", Концентрация - " + (can_ultimate ? "Полная" : "Недостаточная");
+        return name + ": Здоровье - " + health + ", Концентрация - " + (canUltimate ? "Полная" : concentration + "%");
     }
 }

@@ -2,53 +2,54 @@ import java.util.Scanner;
 public class Player {
 
     private String name = "Noname";
+    private int gameMode = 0;
+    private Unit[] units = new Unit[3];
+    private int liveUnits = 3;
+
+    private boolean canPlay = true;
+
     public String getName() {
         return name;
     }
-    
-    private Unit[] units = new Unit[3];
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getGameMode() {
+        return gameMode;
+    }
+
+    public void setGameMode(int gameMode) {
+        this.gameMode = gameMode;
+    }
+
     public Unit[] getUnits() {
         return units;
     }
-    private int liveUnits = 3;
+
+    public void setUnits(Unit[] units) {
+        this.units = units;
+    }
+
     public int getLiveUnits() {
         return liveUnits;
     }
 
-    public void decreaseLiveUnits() {
-        liveUnits--;
-        if (liveUnits==0) canPlay = false;
+    public void setLiveUnits(int liveUnits) {
+        this.liveUnits = liveUnits;
     }
 
-    private boolean canPlay = true;
     public boolean isCanPlay() {
         return canPlay;
     }
-    public Player(String name){
-        this.name = name;
+
+    public void setCanPlay(boolean canPlay) {
+        this.canPlay = canPlay;
     }
 
-    public void setUnits(int[] choice, Scanner scan){
-        for (int i = 0; i < units.length; i++) {
-            switch (choice[i]){
-                case(1):
-                    System.out.println("Введите прозвище вашего мечника: ");
-                    units[i] = new Knight(scan.next());
-                    break;
-                case(2):
-                    System.out.println("Введите прозвище вашего терминатора: ");
-                    units[i] = new Terminator(scan.next());
-                    break;
-                case(3):
-                    System.out.println("Введите прозвище вашего волшебника: ");
-                    units[i] = new Wizard(scan.next());
-                    break;
-                default:
-                    System.out.println("Вы не нашли такого воина, однако к вам пришел мечник!\nВведите прозвище вашего подопечного: ");
-                    units[i] = new Knight(scan.next());
-                    break;
-            }
-        }
+    public Player(String name){
+        this.name = name;
     }
 
     public void printUnitsParameters(){
@@ -58,8 +59,7 @@ public class Player {
     }
 
     public Unit chooseUnit(int ind){
-        return units[ind-1];
+        return units[ind];
     }
-
 
 }

@@ -21,6 +21,14 @@ public class Scenary {
         player.printUnitsParameters();
         System.out.println("Выбери авантюриста, который сейчас будет атаковать!\nУкажи его номер: ");
     }
+
+    public static void reChoice(){
+        System.out.println("Вы выбрали авантюриста, которые уже погиб в схватке...\nВыберете другого авантюриста!\n");
+    }
+
+    public static void reNumber(){
+        System.out.println("Вы ввели некорректное число, повторите ввод!\n");
+    }
     public static void enemyInfo(Player enemy){
         System.out.println("Состояние группы авантюристов, руководитель которой - " + enemy.getName() + ":");
         enemy.printUnitsParameters();

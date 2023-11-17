@@ -1,16 +1,14 @@
-import java.util.SortedMap;
-
 public class Terminator extends Unit{
-    protected int rockets = 3;
-    protected float defDecrease = 0.7f;
+    protected int rockets = 4;
+    protected float defDecrease = 0.8f;
     public Terminator(String unitName) {
         name = "Терминатор " + unitName;
         power = 10;
         defence = 25;
-        CriticalChanse = 0.6f;
-        ParryChanse = 0.15f;
+        CriticalChance = 0.6f;
+        ParryChance = 0.16f;
     }
-    public void rocketshot(Unit unit) {
+    public void rocketShot(Unit unit) {
         rockets--;
         System.out.println(this.name + " атакует ракетами " + unit.name + ", пытаясь нанести урон: " + power * 3);
         System.out.println("Ракет осталось: " + rockets);
@@ -23,7 +21,7 @@ public class Terminator extends Unit{
     @Override
     public void attack(Unit unit) {
         if (rockets > 0) {
-            rocketshot(unit);
+            rocketShot(unit);
         }
         else {
             super.attack(unit);
@@ -31,9 +29,14 @@ public class Terminator extends Unit{
     }
 
     @Override
+    public void addConcentration(){
+        concentration += 25;
+    }
+
+    @Override
     public void ultimate(Unit[] PlayerUnits, Unit[] RivalUnits) {
         for (Unit enemy : RivalUnits) {
-            this.weakening(enemy);
+            if (enemy.isAlive()) this.weakening(enemy);
         }
         super.ultimate(PlayerUnits, RivalUnits);
     }
