@@ -3,6 +3,8 @@ public class Wizard extends Unit{
     protected int spellcost = 10;
     public Wizard(String unitName) {
         name = "Маг " + unitName;
+        health = 95;
+        MAX_HEALTH = health;
         power = 35;
         defence = 0;
         CriticalChance = 0.05f;

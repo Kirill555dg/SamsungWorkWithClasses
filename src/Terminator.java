@@ -4,6 +4,8 @@ public class Terminator extends Unit{
     public Terminator(String unitName) {
         name = "Терминатор " + unitName;
         power = 10;
+        health = 105;
+        MAX_HEALTH = health;
         defence = 25;
         CriticalChance = 0.6f;
         ParryChance = 0.16f;

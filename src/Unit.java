@@ -3,7 +3,7 @@ public class Unit {
     protected String name = "Персонаж";
     protected boolean Alive = true;
     protected int health = 100;
-    protected final int MAX_HEALTH = health;
+    protected int MAX_HEALTH = health;
     protected boolean canUltimate = false;
     protected int concentration = 0;
     protected int defence = 10;

@@ -3,6 +3,7 @@ public class Knight extends Unit{
     public Knight(String unitName) {
         name = "Рыцарь " + unitName;
         health = 125;
+        MAX_HEALTH = health;
         CriticalChance = 0.3f;
         ParryChance = 0.2f;
     }
