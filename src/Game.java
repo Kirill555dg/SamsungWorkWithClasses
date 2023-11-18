@@ -110,8 +110,8 @@ public class Game {
 
     public static Unit setUnit(Player player){
         Unit unit;
-        int n = intInput();
         do {
+            int n = intInput();
             unit = player.chooseUnit(n - 1);
             if (!unit.isAlive()) Scenary.reChoice();
         } while (!unit.isAlive());
